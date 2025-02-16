@@ -1,3 +1,4 @@
+<!-- dfhdhfhdf -->
 <?php
 include 'DBConnection.php';
 
@@ -119,7 +120,7 @@ while ($row = mysqli_fetch_assoc($result_avg_charges)) {
 // Fetch the count of members by payment method
 $sql_payment_methods_count = "
 SELECT payment_method, COUNT(*) AS member_count
-FROM transaction";
+FROM history";
 
 if ($selected_month) {
     $sql_payment_methods_count .= " WHERE MONTHNAME(payment_date) = ?";
@@ -142,6 +143,39 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
     $payment_methods[] = $row['payment_method'];
     $member_counts[] = $row['member_count'];
 }
+
+// Fetch total members who paid using G-Cash or Walk-in by Purok
+$sql_payment_methods_count = "
+SELECT m.address AS address, 
+       SUM(CASE WHEN t.payment_method = 'G-Cash' THEN 1 ELSE 0 END) AS gcash_count,
+       SUM(CASE WHEN t.payment_method = 'Walk-in' THEN 1 ELSE 0 END) AS walkin_count
+FROM members m
+JOIN history t ON m.member_id = t.member_id";
+
+if ($selected_month) {
+    $sql_payment_methods_count .= " WHERE MONTHNAME(t.payment_date) = ?";
+}
+
+$sql_payment_methods_count .= " GROUP BY m.address";
+
+$stmt_payment_methods_count = $connection->prepare($sql_payment_methods_count);
+
+if ($selected_month) {
+    $stmt_payment_methods_count->bind_param("s", $selected_month);
+    $stmt_payment_methods_count->execute();
+    $result_payment_methods_count = $stmt_payment_methods_count->get_result();
+} else {
+    $result_payment_methods_count = $connection->query($sql_payment_methods_count);
+}
+
+$gcash_counts = [];
+$walkin_counts = [];
+
+while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
+    $gcash_counts[] = $row['gcash_count'];
+    $walkin_counts[] = $row['walkin_count'];
+}
+
 
 ?>
 
@@ -335,39 +369,56 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                                     <option value="December" <?= $selected_month == 'December' ? 'selected' : '' ?>>
                                         December</option>
                                     <!-- <option value="" <?= !$selected_month ? 'selected' : '' ?>>All
-                                        Months</option> -->
+                Months</option> -->
                                 </select>
                             </div>
                             <!-- ComboBox for Address -->
                             <!-- <div class="col-lg-2">
-                                <select id="address-select" class="form-select">
-                                    <option selected disabled>Select Purok</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                </select>
-                            </div> -->
+        <select id="address-select" class="form-select">
+            <option selected disabled>Select Purok</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div> -->
 
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="box">
-                                        <h6>Total Charges per Purok</h6>
-                                        <canvas id="chargesChart" style="width: 100%; height: 100px;"></canvas>
+                            <div class="container-fluid px-4">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="box">
+                                            <h6>Total Charges per Purok</h6>
+                                            <canvas id="chargesChart" style="width: 100%; height: 200px;"></canvas>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="box">
-                                        <h6>Payment Method Used</h6>
-                                        <canvas id="paymentMethodChart" style="width: 100%; height: 100px;"></canvas>
+                                    <div class="col-lg-4">
+                                        <div class="box">
+                                            <h6>Payment Method Used</h6>
+                                            <canvas id="paymentMethodChart"
+                                                style="width: 100%; height: 200px;"></canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="box">
-                                        <h6>Monthly Charges</h6>
-                                        <canvas id="monthlyChargesChart" style="width: 1000px; height: auto;"></canvas>
+                            <div class="container-fluid px-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="box">
+                                            <h6>Monthly Charges</h6>
+                                            <canvas id="monthlyChargesChart"
+                                                style="width: 1000px; height: 200px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid px-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="box">
+                                            <h6>Payment Methods by Purok (G-Cash vs Walk-in)</h6>
+                                            <canvas id="paymentChart" style="width: 100%; height: 300px;"></canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -384,8 +435,12 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                 <script src="start/js/simple-datatables.min.js"></script>
                 <script src="start/js/datatables-simple-demo.js"></script>
 
+                <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-                <script>// Data passed from PHP to JavaScript
+
+
+                <script>
+                    // Data passed from PHP to JavaScript
                     var addresses = <?php echo json_encode($addresses); ?>;
                     var currentCharges = <?php echo json_encode($current_charges); ?>;
                     var months = <?php echo json_encode($months); ?>;
@@ -394,6 +449,8 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
 
                     var paymentMethods = <?php echo json_encode($payment_methods); ?>;
                     var memberCounts = <?php echo json_encode($member_counts); ?>;
+                    var gcashCounts = <?php echo json_encode($gcash_counts); ?>;
+                    var walkinCounts = <?php echo json_encode($walkin_counts); ?>;
 
                     // Initialize Charts
                     var ctx1 = document.getElementById('chargesChart').getContext('2d');
@@ -431,7 +488,8 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                                                 return label;
                                             });
                                             return customLabels;
-                                        }
+                                        },
+
                                     }
                                 }
                             }
@@ -452,12 +510,15 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                         options: {
                             responsive: true,
                             plugins: {
-                                legend: { display: true }
+                                legend: {
+                                    display: true
+                                }
                             }
                         }
                     });
 
                     var ctx3 = document.getElementById('monthlyChargesChart').getContext('2d');
+
                     var monthlyChargesChart = new Chart(ctx3, {
                         type: 'line',
                         data: {
@@ -465,15 +526,7 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                             datasets: [{
                                 label: 'Total Charges per Month',
                                 data: totalCharges,
-                                backgroundColor: [
-                                    'rgba(75, 192, 192, 0.6)',
-                                    'rgba(153, 102, 255, 0.6)',
-                                    'rgba(255, 159, 64, 0.6)',
-                                    'rgba(54, 162, 235, 0.6)',
-                                    'rgba(255, 99, 132, 0.6)',
-                                    'rgba(201, 203, 207, 0.6)'
-                                ],
-                                borderColor: 'rgba(153, 102, 255, 1)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
                                 borderWidth: 2,
                                 fill: true
                             }]
@@ -481,10 +534,64 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                         options: {
                             responsive: true,
                             plugins: {
-                                legend: { display: true }
+                                legend: {
+                                    display: true
+                                }
+                            }
+                        },
+                        plugins: [{
+                            beforeDraw: (chart) => {
+                                let ctx = chart.ctx;
+                                let chartArea = chart.chartArea;
+                                if (!chartArea) return;
+
+                                // Create gradient based on actual chart size
+                                let gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                                gradient.addColorStop(0, 'rgba(75, 192, 192, 1)');
+                                gradient.addColorStop(1, 'rgba(75, 192, 192, 0.2)');
+
+                                // Apply gradient to dataset
+                                chart.data.datasets[0].backgroundColor = gradient;
+                            }
+                        }]
+                    });
+
+
+
+                    // Stacked Bar Chart for Total Charges per Purok
+                    var ctxPayment = document.getElementById('paymentChart').getContext('2d');
+                    var paymentChart = new Chart(ctxPayment, {
+                        type: 'bar',
+                        data: {
+                            labels: addresses,
+                            datasets: [{
+                                label: 'G-Cash',
+                                data: gcashCounts,
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)', // Blue
+                            },
+                            {
+                                label: 'Walk-in',
+                                data: walkinCounts,
+                                backgroundColor: 'rgba(255, 99, 132, 0.6)', // Red
+                            }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
                     });
+
+
 
                     // Function to filter data based on the selected month
                     function filterDataByMonth(selectedMonth) {

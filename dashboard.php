@@ -166,6 +166,17 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
     $walkin_counts[] = $row['walkin_count'];
 }
 
+// check if done reading
+
+$sql_isDone = "SELECT isDone, COUNT(*) as count FROM members GROUP BY isDone";
+$result_isDone = mysqli_query($connection, $sql_isDone);
+
+$isDoneLabels = [];
+$isDoneCounts = [];
+while ($row = mysqli_fetch_assoc($result_isDone)) {
+    $isDoneLabels[] = $row['isDone'] ? 'Done' : 'Not Done';
+    $isDoneCounts[] = $row['count'];
+}
 
 ?>
 
@@ -209,8 +220,10 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
 </head>
 
 <body class="sb-nav-fixed">
+
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
+
         </div>
         <div id="layoutSidenav_content">
             <main>
@@ -283,46 +296,52 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                                     <option value="December" <?= $selected_month == 'December' ? 'selected' : '' ?>>
                                         December</option>
                                     <!-- <option value="" <?= !$selected_month ? 'selected' : '' ?>>All
-                                        Months</option> -->
+                Months</option> -->
                                 </select>
                             </div>
                             <!-- ComboBox for Address -->
                             <!-- <div class="col-lg-2">
-                                <select id="address-select" class="form-select">
-                                    <option selected disabled>Select Purok</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                </select>
-                            </div> -->
+        <select id="address-select" class="form-select">
+            <option selected disabled>Select Purok</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div> -->
 
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="box">
-                                        <h6>Total Charges per Purok</h6>
-                                        <canvas id="chargesChart" style="width: 100%; height: 100px;"></canvas>
+                            <div class="container-fluid px-4">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="box">
+                                            <h6>Total Charges per Purok</h6>
+                                            <canvas id="chargesChart" style="width: 100%; height: 200px;"></canvas>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="box">
-                                        <h6>Payment Method Used</h6>
-                                        <canvas id="paymentMethodChart" style="width: 100%; height: 100px;"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="box">
-                                        <h6>Monthly Charges</h6>
-                                        <canvas id="monthlyChargesChart" style="width: 1000px; height: auto;"></canvas>
+                                    <div class="col-lg-4">
+                                        <div class="box">
+                                            <h6>Payment Method Used</h6>
+                                            <canvas id="paymentMethodChart"
+                                                style="width: 100%; height: 200px;"></canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="container-fluid px-4">
                                 <div class="row">
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-12">
+                                        <div class="box">
+                                            <h6>Monthly Charges</h6>
+                                            <canvas id="monthlyChargesChart"
+                                                style="width: 1000px; height: 200px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid px-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
                                         <div class="box">
                                             <h6>Payment Methods by Purok (G-Cash vs Walk-in)</h6>
                                             <canvas id="paymentChart" style="width: 100%; height: 300px;"></canvas>
@@ -347,7 +366,8 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
 
 
 
-                <script>// Data passed from PHP to JavaScript
+                <script>
+                    // Data passed from PHP to JavaScript
                     var addresses = <?php echo json_encode($addresses); ?>;
                     var currentCharges = <?php echo json_encode($current_charges); ?>;
                     var months = <?php echo json_encode($months); ?>;
@@ -417,12 +437,15 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                         options: {
                             responsive: true,
                             plugins: {
-                                legend: { display: true }
+                                legend: {
+                                    display: true
+                                }
                             }
                         }
                     });
 
                     var ctx3 = document.getElementById('monthlyChargesChart').getContext('2d');
+
                     var monthlyChargesChart = new Chart(ctx3, {
                         type: 'line',
                         data: {
@@ -430,15 +453,7 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                             datasets: [{
                                 label: 'Total Charges per Month',
                                 data: totalCharges,
-                                backgroundColor: [
-                                    'rgba(75, 192, 192, 0.6)',
-                                    'rgba(153, 102, 255, 0.6)',
-                                    'rgba(255, 159, 64, 0.6)',
-                                    'rgba(54, 162, 235, 0.6)',
-                                    'rgba(255, 99, 132, 0.6)',
-                                    'rgba(201, 203, 207, 0.6)'
-                                ],
-                                borderColor: 'rgba(153, 102, 255, 1)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
                                 borderWidth: 2,
                                 fill: true
                             }]
@@ -446,10 +461,28 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                         options: {
                             responsive: true,
                             plugins: {
-                                legend: { display: true }
+                                legend: {
+                                    display: true
+                                }
                             }
-                        }
+                        },
+                        plugins: [{
+                            beforeDraw: (chart) => {
+                                let ctx = chart.ctx;
+                                let chartArea = chart.chartArea;
+                                if (!chartArea) return;
+
+                                // Create gradient based on actual chart size
+                                let gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                                gradient.addColorStop(0, 'rgba(75, 192, 192, 1)');
+                                gradient.addColorStop(1, 'rgba(75, 192, 192, 0.2)');
+
+                                // Apply gradient to dataset
+                                chart.data.datasets[0].backgroundColor = gradient;
+                            }
+                        }]
                     });
+
 
 
                     // Stacked Bar Chart for Total Charges per Purok
@@ -467,7 +500,8 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                                 label: 'Walk-in',
                                 data: walkinCounts,
                                 backgroundColor: 'rgba(255, 99, 132, 0.6)', // Red
-                            }]
+                            }
+                            ]
                         },
                         options: {
                             responsive: true,
@@ -529,7 +563,7 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                 <script>
                     document.getElementById("month-select").addEventListener("change", function () {
                         var selectedMonth = this.value;
-                        window.location.href = "dashboard.php?month=" + selectedMonth;
+                        window.location.href = "dashboard_admin.php?month=" + selectedMonth;
                     });
                 </script>
 
