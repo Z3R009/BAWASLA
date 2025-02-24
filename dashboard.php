@@ -174,7 +174,8 @@ $result_isDone = mysqli_query($connection, $sql_isDone);
 $isDoneLabels = [];
 $isDoneCounts = [];
 while ($row = mysqli_fetch_assoc($result_isDone)) {
-    $isDoneLabels[] = $row['isDone'] ? 'Done' : 'Not Done';
+    // Use the ENUM value directly as the label
+    $isDoneLabels[] = $row['isDone'];
     $isDoneCounts[] = $row['count'];
 }
 
@@ -349,6 +350,20 @@ while ($row = mysqli_fetch_assoc($result_isDone)) {
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- pie chart for reading -->
+
+                            <div class="container-fluid px-4">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="box">
+                                            <h6>Member Completion Status</h6>
+                                            <canvas id="isDoneChart" style="width: 100%; height: 200px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -523,18 +538,21 @@ while ($row = mysqli_fetch_assoc($result_isDone)) {
                     // Function to filter data based on the selected month
                     function filterDataByMonth(selectedMonth) {
                         // Ensure proper filtering by finding the indices that match the selected month
-                        var filteredIndices = months.map((month, index) => month === selectedMonth ? index : -1).filter(index => index !== -1);
+                        var filteredIndices = months.map((month, index) => month === selectedMonth ? index : -1).filter(index =>
+                            index !== -1);
 
                         // Filter data for the bar chart (addresses and charges)
                         var filteredAddresses = filteredIndices.map(index => addresses[index]);
                         var filteredCharges = filteredIndices.map(index => currentCharges[index]);
 
                         // Filter data for the line chart (total charges by month)
-                        var filteredTotalCharges = months.map((month, index) => month === selectedMonth ? totalCharges[index] : 0);
+                        var filteredTotalCharges = months.map((month, index) => month === selectedMonth ? totalCharges[index] :
+                            0);
 
                         // Aggregate data for the pie chart
                         var filteredPaymentCounts = paymentMethods.map((method, methodIndex) => {
-                            return filteredIndices.reduce((sum, dataIndex) => sum + (methodIndex === dataIndex ? memberCounts[dataIndex] : 0), 0);
+                            return filteredIndices.reduce((sum, dataIndex) => sum + (methodIndex === dataIndex ?
+                                memberCounts[dataIndex] : 0), 0);
                         });
 
                         // Update bar chart
@@ -565,6 +583,43 @@ while ($row = mysqli_fetch_assoc($result_isDone)) {
                         var selectedMonth = this.value;
                         window.location.href = "dashboard_admin.php?month=" + selectedMonth;
                     });
+                </script>
+
+                <script>
+                    // reading pie chart
+                    // Data passed from PHP to JavaScript
+                    var isDoneLabels = <?php echo json_encode($isDoneLabels); ?>;
+                    var isDoneCounts = <?php echo json_encode($isDoneCounts); ?>;
+
+                    // Initialize Pie Chart for Member Completion Status
+                    var ctxIsDone = document.getElementById('isDoneChart').getContext('2d');
+                    var isDoneChart = new Chart(ctxIsDone, {
+                        type: 'pie',
+                        data: {
+                            labels: isDoneLabels,
+                            datasets: [{
+                                data: isDoneCounts,
+                                backgroundColor: ['#36A2EB', '#FF6384'], // Blue for Done, Red for Not Done
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    display: true
+                                },
+                                datalabels: {
+                                    color: '#fff',
+                                    formatter: (value) => {
+                                        return value + ' (' + ((value / <?php echo array_sum($isDoneCounts); ?>) * 100).toFixed(2) + '%)';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels]
+                    });
+
                 </script>
 
 </body>

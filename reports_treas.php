@@ -29,12 +29,12 @@ $query = "
         meter_reading
     JOIN 
         members ON meter_reading.member_id = members.member_id
-    ORDER BY reading_date asc
 ";
 
 // Add filtering condition if a specific month is selected
 if ($selectedMonth !== null && $selectedMonth !== '') {
-    $query .= " WHERE MONTH(meter_reading.reading_date) = $selectedMonth";
+    $query .= " WHERE MONTH(meter_reading.reading_date) = $selectedMonth 
+    ORDER BY reading_date asc";
 }
 
 
