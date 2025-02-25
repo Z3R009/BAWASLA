@@ -44,7 +44,11 @@ if (isset($_POST['submit'])) {
 }
 
 // Retrieve users
-$select = mysqli_query($connection, "SELECT * FROM users");
+
+$user_types = ['President', 'Treasurer', 'Meter Reader'];
+$user_types_str = "'" . implode("', '", $user_types) . "'";
+
+$select = mysqli_query($connection, "SELECT * FROM users WHERE user_type IN ($user_types_str)");
 
 
 ?>
