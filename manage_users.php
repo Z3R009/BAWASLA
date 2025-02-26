@@ -251,7 +251,7 @@ $select = mysqli_query($connection, "SELECT * FROM users WHERE user_type IN ($us
                         </div>
                     </div>
 
-                    </ol>
+
                     <div class="card mb-4">
                         <div class="card-body">
                             <table id="datatablesSimple">

@@ -11,6 +11,30 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
+// retrieve/if done reading
+
+$select_isDone = mysqli_query($connection, "
+    SELECT 
+        members.member_id, 
+        CONCAT(members.last_name, ', ', members.first_name, ' ', members.middle_name) AS fullname, 
+        isDone
+    FROM 
+        members
+");
+
+// retrieve status/paid not paid
+
+$select_status = mysqli_query($connection, "
+    SELECT 
+        members.member_id, 
+        CONCAT(members.last_name, ', ', members.first_name, ' ', members.middle_name) AS fullname,
+        meter_reading.status
+    FROM 
+        meter_reading
+    JOIN 
+        members ON meter_reading.member_id = members.member_id
+");
+
 // Get the selected month from the URL or default to null
 $selected_month = isset($_GET['month']) ? $_GET['month'] : null;
 
@@ -301,6 +325,7 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
+
                     <!-- <h1 class="mt-4 d-flex">Dashboard</h1> -->
                     <ol class="breadcrumb mb-4">
                     </ol>
@@ -369,18 +394,18 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                                     <option value="December" <?= $selected_month == 'December' ? 'selected' : '' ?>>
                                         December</option>
                                     <!-- <option value="" <?= !$selected_month ? 'selected' : '' ?>>All
-                Months</option> -->
+                                        Months</option> -->
                                 </select>
                             </div>
                             <!-- ComboBox for Address -->
                             <!-- <div class="col-lg-2">
-        <select id="address-select" class="form-select">
-            <option selected disabled>Select Purok</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select>
-    </div> -->
+                                <select id="address-select" class="form-select">
+                                    <option selected disabled>Select Purok</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div> -->
 
                             <div class="container-fluid px-4">
                                 <div class="row">
@@ -422,6 +447,50 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="card mb-4">
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>Fullname</th>
+                                        <th>Done Reading</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($row = mysqli_fetch_assoc($select_isDone)) { ?>
+                                        <tr>
+                                            <td><?php echo htmlspecialchars($row['fullname']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['isDone']); ?></td>
+
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>Fullname</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($row = mysqli_fetch_assoc($select_status)) { ?>
+                                        <tr>
+                                            <td><?php echo htmlspecialchars($row['fullname']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['status']); ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
