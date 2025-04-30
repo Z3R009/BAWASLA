@@ -81,11 +81,12 @@ $select = mysqli_query($connection, "SELECT * FROM members");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Offline Example</title>
+    <title>Manage Members</title>
     <!-- Link to your local Bootstrap CSS file -->
     <link href="start/css/style.min.css" rel="stylesheet" />
     <link href="start/css/styles.css" rel="stylesheet" />
     <script src="fontawesome-free-6.3.0-web/js/all.js"></script>
+    <link href="img/lg2.png" rel="icon">
 
     <style>
         .action-dropdown {

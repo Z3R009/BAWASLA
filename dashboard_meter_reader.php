@@ -153,53 +153,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($connection->query($sql_delete_arrears) && $connection->query($sql_update_isDone)) {
                 // Send SMS notification
-                // $edit_mobile_number = $_POST['edit_mobile_number'] ?? null;
+                $edit_mobile_number = $_POST['edit_mobile_number'] ?? null;
 
-                // if ($edit_mobile_number) {
-                //     $billing_month = $_POST['billing_month'] ?? 'Unknown Month'; // Set defaults if not provided
-                //     $total_amount_due = $_POST['total_amount_due'] ?? '0.00';
-                //     $due_date = $_POST['due_date'] ?? 'No Due Date';
+                if ($edit_mobile_number) {
+                    $billing_month = $_POST['billing_month'] ?? 'Unknown Month'; // Set defaults if not provided
+                    $total_amount_due = $_POST['total_amount_due'] ?? '0.00';
+                    $due_date = $_POST['due_date'] ?? 'No Due Date';
 
-                //     // SMS API configuration
-                //     $authToken = '1035|i8jvhDHhiHU60rUAP4jTv5Z4PCiWIRPilG6ssyAg';
-                //     $messageText = "Your billing for $billing_month has been processed. Total amount due: $total_amount_due. Due date: $due_date.";
-                //     $apiUrl = 'https://app.philsms.com/api/v3/sms/send';
-                //     $senderID = 'PhilSMS'; // Replace with your desired Sender ID
+                    // SMS API configuration
+                    $authToken = '1035|i8jvhDHhiHU60rUAP4jTv5Z4PCiWIRPilG6ssyAg';
+                    $messageText = "Your billing for $billing_month has been processed. Total amount due: $total_amount_due. Due date: $due_date.";
+                    $apiUrl = 'https://app.philsms.com/api/v3/sms/send';
+                    $senderID = 'PhilSMS'; // Replace with your desired Sender ID
 
-                //     // Prepare data for the API
-                //     $send_data = [
-                //         'sender_id' => $senderID,
-                //         'recipient' => "+63" . ltrim($edit_mobile_number, '0'), // Ensure +63 format
-                //         'message' => $messageText,
-                //     ];
-                //     $parameters = json_encode($send_data);
+                    // Prepare data for the API
+                    $send_data = [
+                        'sender_id' => $senderID,
+                        'recipient' => "+63" . ltrim($edit_mobile_number, '0'), // Ensure +63 format
+                        'message' => $messageText,
+                    ];
+                    $parameters = json_encode($send_data);
 
-                //     // Initialize cURL
-                //     $ch = curl_init();
-                //     curl_setopt($ch, CURLOPT_URL, $apiUrl);
-                //     curl_setopt($ch, CURLOPT_POST, true);
-                //     curl_setopt($ch, CURLOPT_POSTFIELDS, $parameters);
-                //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                //     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                //         "Content-Type: application/json",
-                //         "Authorization: Bearer $authToken",
-                //     ]);
+                    // Initialize cURL
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $apiUrl);
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $parameters);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                        "Content-Type: application/json",
+                        "Authorization: Bearer $authToken",
+                    ]);
 
-                //     // Send the request and capture the response
-                //     $response = curl_exec($ch);
-                //     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                //     curl_close($ch);
+                    // Send the request and capture the response
+                    $response = curl_exec($ch);
+                    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                    curl_close($ch);
 
-                //     // Handle the API response
-                //     if ($httpCode == 200) {
-                //         header('Location: dashboard_meter_reader.php'); // Redirect on success
-                //         exit;
-                //     } else {
-                //         echo 'SMS sending failed. Response: ' . $response;
-                //     }
-                // } else {
-                //     echo "Billing processed, but no SMS sent due to missing phone number.";
-                // }
+                    // Handle the API response
+                    if ($httpCode == 200) {
+                        header('Location: dashboard_meter_reader.php'); // Redirect on success
+                        exit;
+                    } else {
+                        echo 'SMS sending failed. Response: ' . $response;
+                    }
+                } else {
+                    echo "Billing processed, but no SMS sent due to missing phone number.";
+                }
 
             } else {
                 echo "Error updating member data: " . $connection->error;
@@ -224,6 +224,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="start/css/style.min.css" rel="stylesheet" />
     <link href="start/css/styles.css" rel="stylesheet" />
     <script src="fontawesome-free-6.3.0-web/js/all.js"></script>
+
+    <link href="img/lg2.png" rel="icon">
 
     <style>
         td:nth-child(6),

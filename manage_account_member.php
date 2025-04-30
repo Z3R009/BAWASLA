@@ -91,6 +91,7 @@ if (!empty($errors)): ?>
     <link href="start/css/styles.css" rel="stylesheet" />
     <script src="fontawesome-free-6.3.0-web/js/all.js"></script>
     <script src="start/js/Chart.min.js"></script>
+    <link href="img/lg2.png" rel="icon">
 
     <style>
         /* Center the cards, set width, and add top padding */

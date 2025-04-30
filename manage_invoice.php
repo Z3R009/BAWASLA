@@ -18,6 +18,7 @@ $select = mysqli_query($connection, "SELECT member_id, CONCAT(last_name, ', ', f
     <link href="start/css/style.min.css" rel="stylesheet" />
     <link href="start/css/styles.css" rel="stylesheet" />
     <script src="fontawesome-free-6.3.0-web/js/all.js"></script>
+    <link href="img/lg2.png" rel="icon">
 
     <style>
         .action-dropdown {

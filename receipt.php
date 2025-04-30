@@ -34,6 +34,7 @@ if (isset($_GET['transaction_id'])) {
     <link href="start/css/style.min.css" rel="stylesheet" />
     <link href="start/css/styles.css" rel="stylesheet" />
     <script src="fontawesome-free-6.3.0-web/js/all.js"></script>
+    <link href="img/lg2.png" rel="icon">
     <style>
         body {
             font-family: Arial, sans-serif;

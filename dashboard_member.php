@@ -73,6 +73,7 @@ $select = mysqli_query($connection, "
     <link href="start/css/style.min.css" rel="stylesheet" />
     <link href="start/css/styles.css" rel="stylesheet" />
     <script src="fontawesome-free-6.3.0-web/js/all.js"></script>
+    <link href="img/lg2.png" rel="icon">
 
     <style>
         td:nth-child(1),

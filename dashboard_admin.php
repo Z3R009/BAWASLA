@@ -215,6 +215,7 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
     <link href="start/css/styles.css" rel="stylesheet" />
     <script src="fontawesome-free-6.3.0-web/js/all.js"></script>
     <script src="start/js/Chart.min.js"></script>
+    <link href="img/lg2.png" rel="icon">
 
     <style>
         .box {
