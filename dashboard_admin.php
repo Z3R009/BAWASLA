@@ -244,43 +244,10 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand with logo-->
-        <a class="navbar-brand ps-3" href="#">
 
-        </a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-                class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-            </div>
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="manage_account_pres.php?user_id=<?php echo $user_id; ?>"><i
-                                class="fa-solid fa-gear"></i><span style="margin-left: 20px; font-size: large; ">
-                                Account Settings</span></a></li>
-                    <li><a class="dropdown-item" href="#!"><i class="fa-solid fa-file"></i><span
-                                style="margin-left: 20px; font-size: large; ">
-                                Activity Logs</span></a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i><span
-                                style="margin-left: 20px; font-size: large; ">
-                                Log Out</span></a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
     <div id="layoutSidenav">
         <?php include "Includes/sidebar_admin.php"; ?>
+        <?php include "Includes/header_admin.php"; ?>
 
         <div id="layoutSidenav_content">
             <main>
