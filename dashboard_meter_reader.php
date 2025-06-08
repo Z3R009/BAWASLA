@@ -261,43 +261,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             href="manage_account_meter_reader.php?user_id=<?php echo $user_id; ?>"><i
                                 class="fa-solid fa-gear"></i><span style="margin-left: 20px; font-size: large; ">
                                 Account Settings</span></a></li>
-                    <li><a class="dropdown-item" href="#!"><i class="fa-solid fa-file"></i><span
-                                style="margin-left: 20px; font-size: large; ">
-                                Activity Logs</span></a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i><span
-                                style="margin-left: 20px; font-size: large; ">
-                                Log Out</span></a></li>
-                </ul>
+                    <hr class="dropdown-divider" />
             </li>
+            <li><a class="dropdown-item" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i><span
+                        style="margin-left: 20px; font-size: large; ">
+                        Log Out</span></a></li>
+        </ul>
+        </li>
         </ul>
     </nav>
     <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <!-- Navbar Brand with logo-->
-                        <a class="navbar-brand ps-3">
-                            <img src="img/lg2.png" alt="Logo"
-                                style="height: 100px; width: auto; max-width: 100%; margin-left: 38px; ">
-                            <!-- The height is increased to 80px for a larger logo -->
-                        </a>
-                        <div class="sb-sidenav-menu-heading"></div>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Manage Meter
-                        </a>
-                    </div>
-                </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Meter Reader
-                </div>
-            </nav>
-        </div>
+        <?php include "Includes/sidebar_meter_reader.php"; ?>
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">

@@ -34,7 +34,7 @@ $query = "
 // Add filtering condition if a specific month is selected
 if ($selectedMonth !== null && $selectedMonth !== '') {
     $query .= " WHERE MONTH(meter_reading.reading_date) = $selectedMonth 
-    ORDER BY reading_date asc";
+    ORDER BY reading_date desc";
 }
 
 

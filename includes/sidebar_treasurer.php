@@ -38,11 +38,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
                         Manage Transaction
                     </a>
-                    <a class="nav-link <?php echo $currentPage == 'invoice_treas.php' ? 'active' : ''; ?>"
+                    <a class="nav-link <?php echo ($currentPage == 'invoice_treas.php' || $currentPage == 'all_invoice.php') ? 'active' : ''; ?>"
                         href="invoice_treas.php?user_id=<?php echo $user_id; ?>">
                         <div class="sb-nav-link-icon"><i class="fa-regular fa-file"></i></div>
                         Manage Invoice
                     </a>
+
                     <a class="nav-link <?php echo $currentPage == 'pending_treas.php' ? 'active' : ''; ?>"
                         href="pending_treas.php?user_id=<?php echo $user_id; ?>">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-clock"></i></div>

@@ -9,8 +9,18 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Retrieve users
-$select = mysqli_query($connection, "SELECT member_id, CONCAT(last_name, ', ', first_name, ' ', middle_name) AS fullname , tank_no, meter_no, address, mobile_number FROM members");
+// Retrieve users ordered alphabetically by fullname
+$select = mysqli_query($connection, "
+    SELECT 
+        member_id, 
+        CONCAT(last_name, ', ', first_name, ' ', middle_name) AS fullname, 
+        tank_no, 
+        meter_no, 
+        address, 
+        mobile_number 
+    FROM members 
+    ORDER BY fullname ASC
+");
 
 
 ?>
