@@ -22,7 +22,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // retrieve
-$select = mysqli_query($connection, "SELECT * FROM history");
+$select = mysqli_query($connection, "SELECT * FROM history ORDER BY payment_date DESC");
 
 // Check for errors in the SQL query
 if (!$select) {
