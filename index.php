@@ -177,6 +177,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div> -->
     </div>
 
+    <!-- Hidden Info Icon -->
+    <div id="easterEggIcon" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 9999;
+">
+        ℹ️
+    </div>
+
+    <!-- Modal Structure -->
+    <div class="modal fade" id="easterEggModal" tabindex="-1" aria-labelledby="easterEggLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="easterEggContent">
+                <!-- Content loaded dynamically via AJAX -->
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
     <script src="start/js/scripts.js"></script>
     <script src="start/js/Chart.min.js"></script>
@@ -184,6 +208,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="start/assets/demo/chart-bar-demo.js"></script>
     <script src="start/js/simple-datatables.min.js"></script>
     <script src="start/js/datatables-simple-demo.js"></script>
+
+    <script>
+        let sequence = [];
+        const secretCode = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+
+        document.addEventListener('keydown', (e) => {
+            sequence.push(e.key);
+            if (sequence.length > 4) sequence.shift();
+
+            if (sequence.toString() === secretCode.toString()) {
+                document.getElementById('easterEggIcon').style.display = 'block';
+            }
+        });
+
+        // Show modal and load content from PHP
+        document.getElementById('easterEggIcon').addEventListener('click', function () {
+            fetch('assets/flags/EE/cr3tor.php') // change this to your PHP file name
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('easterEggContent').innerHTML = html;
+                    const modal = new bootstrap.Modal(document.getElementById('easterEggModal'));
+                    modal.show();
+                });
+        });
+    </script>
+
+
 </body>
 
 </html>
