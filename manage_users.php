@@ -269,7 +269,7 @@ $select = mysqli_query($connection, "SELECT * FROM users WHERE user_type IN ($us
 
                 </div>
             </main>
-
+            <?php include "Includes/footer.php"; ?>
         </div>
     </div>
     <!-- startbootstrap -->

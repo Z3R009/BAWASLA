@@ -1,29 +1,15 @@
+<!-- Rickroll surprise -->
 <div class="modal-header">
-    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <h5 class="modal-title">You've been Rickrolled 🎵</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
-
 <div class="modal-body text-center">
-    <strong>
-        <p>Created By</p>
-    </strong>
-
-    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;">
-        <img src="assets/flags/EE/img.jpg" alt="Ritz Laraño" style="width: 100px; height: 100px; border-radius: 70%;">
-        <a href="https://web.facebook.com/ritz.larano.5/" target="_blank"
-            style="font-weight: bold; font-size: 1.2em; display: flex; align-items: center;">Ritz Laraño</a>
-    </div>
-
-    <hr>
-
-    <p><strong>Collaborators:</strong></p>
-    <ul style="list-style: none; padding: 0;">
-        <li>
-            <a href="https://web.facebook.com/claire.kyut.bulalaque" target="_blank"
-                style="font-weight: bold; font-size: 1em;">Claire Bulalaque</a>
-        </li>
-        <li>
-            <a href="https://web.facebook.com/kevinncarl" target="_blank"
-                style="font-weight: bold; font-size: 1em;">Kevin Carl Lloren</a>
-        </li>
-    </ul>
+    <iframe width="100%" height="315"
+        src="assets/flags/EE/Rick Astley - Never Gonna Give You Up (Official Music Video).mp4"
+        title="Rick Astley - Never Gonna Give You Up" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 </div>

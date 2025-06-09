@@ -116,6 +116,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 1.25rem;
             font-weight: bold;
         }
+
+        @keyframes fadein {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -177,6 +197,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div> -->
     </div>
 
+    <!-- Conditional Cloud Tip -->
+    <div id="loginTip" style="
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.4); /* Lower opacity */
+    color: rgba(0, 0, 0, 0.6);             /* Softer text color */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Softer shadow */
+    padding: 15px 20px;
+    border-radius: 15px;
+    font-size: 14px;
+    z-index: 9999;
+    animation: fadein 1s, fadeout 1s 5s;
+">
+        💡 Tip: Try typing <b>RICK</b> to discover a surprise!
+    </div>
+
+
+
     <!-- Hidden Info Icon -->
     <div id="easterEggIcon" style="
     display: none;
@@ -211,26 +251,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script>
         let sequence = [];
-        const secretCode = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+        const secretCode = ['KeyR', 'KeyI', 'KeyC', 'KeyK'];
 
         document.addEventListener('keydown', (e) => {
-            sequence.push(e.key);
+            sequence.push(e.code); // use .code to match 'KeyR', etc.
             if (sequence.length > 4) sequence.shift();
 
             if (sequence.toString() === secretCode.toString()) {
-                document.getElementById('easterEggIcon').style.display = 'block';
+                // Automatically show the modal and load the PHP content
+                fetch('assets/flags/EE/cr3tor.php')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('easterEggContent').innerHTML = html;
+                        const modal = new bootstrap.Modal(document.getElementById('easterEggModal'));
+                        modal.show();
+                    });
             }
         });
 
-        // Show modal and load content from PHP
-        document.getElementById('easterEggIcon').addEventListener('click', function () {
-            fetch('assets/flags/EE/cr3tor.php') // change this to your PHP file name
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('easterEggContent').innerHTML = html;
-                    const modal = new bootstrap.Modal(document.getElementById('easterEggModal'));
-                    modal.show();
-                });
+    </script>
+
+    <!-- time -->
+    <script>
+        // Show tip message to 4 out of every 10 users
+        window.addEventListener('load', function () {
+            const chance = Math.random(); // 0.0 to 1.0
+            if (chance < 0.2) { // 40% chance
+                const tip = document.getElementById('loginTip');
+                tip.style.display = 'block';
+                setTimeout(() => {
+                    tip.style.display = 'none';
+                }, 4000); // stays visible for 7 seconds
+            }
         });
     </script>
 

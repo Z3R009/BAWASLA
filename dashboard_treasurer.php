@@ -350,219 +350,223 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                     </div>
 
                 </div>
-                <!-- startbootstrap -->
-                <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
-                <script src="start/js/scripts.js"></script>
-                <script src="start/js/Chart.min.js"></script>
-                <script src="start/assets/demo/chart-area-demo.js"></script>
-                <script src="start/assets/demo/chart-bar-demo.js"></script>
-                <script src="start/js/simple-datatables.min.js"></script>
-                <script src="start/js/datatables-simple-demo.js"></script>
+            </main>
+            <?php include "Includes/footer.php"; ?>
 
-                <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+        </div>
+        <!-- startbootstrap -->
+        <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+        <script src="start/js/scripts.js"></script>
+        <script src="start/js/Chart.min.js"></script>
+        <script src="start/assets/demo/chart-area-demo.js"></script>
+        <script src="start/assets/demo/chart-bar-demo.js"></script>
+        <script src="start/js/simple-datatables.min.js"></script>
+        <script src="start/js/datatables-simple-demo.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
 
 
-                <script>
-                    // Data passed from PHP to JavaScript
-                    var addresses = <?php echo json_encode($addresses); ?>;
-                    var currentCharges = <?php echo json_encode($current_charges); ?>;
-                    var months = <?php echo json_encode($months); ?>;
-                    var totalCharges = <?php echo json_encode($total_charges); ?>;
-                    var avgCharges = <?php echo json_encode($avg_charges); ?>;
+        <script>
+            // Data passed from PHP to JavaScript
+            var addresses = <?php echo json_encode($addresses); ?>;
+            var currentCharges = <?php echo json_encode($current_charges); ?>;
+            var months = <?php echo json_encode($months); ?>;
+            var totalCharges = <?php echo json_encode($total_charges); ?>;
+            var avgCharges = <?php echo json_encode($avg_charges); ?>;
 
-                    var paymentMethods = <?php echo json_encode($payment_methods); ?>;
-                    var memberCounts = <?php echo json_encode($member_counts); ?>;
-                    var gcashCounts = <?php echo json_encode($gcash_counts); ?>;
-                    var walkinCounts = <?php echo json_encode($walkin_counts); ?>;
+            var paymentMethods = <?php echo json_encode($payment_methods); ?>;
+            var memberCounts = <?php echo json_encode($member_counts); ?>;
+            var gcashCounts = <?php echo json_encode($gcash_counts); ?>;
+            var walkinCounts = <?php echo json_encode($walkin_counts); ?>;
 
-                    // Initialize Charts
-                    var ctx1 = document.getElementById('chargesChart').getContext('2d');
-                    var chargesChart = new Chart(ctx1, {
-                        type: 'bar',
-                        data: {
-                            labels: addresses,
-                            datasets: [{
-                                label: 'Total Charges per Purok',
-                                data: currentCharges,
-                                backgroundColor: [
-                                    'rgba(75, 192, 192, 0.6)',
-                                    'rgba(153, 102, 255, 0.6)',
-                                    'rgba(255, 159, 64, 0.6)',
-                                    'rgba(54, 162, 235, 0.6)',
-                                    'rgba(255, 99, 132, 0.6)',
-                                    'rgba(201, 203, 207, 0.6)'
-                                ],
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    display: true,
-                                    labels: {
-                                        generateLabels: function (chart) {
-                                            var originalLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-                                            var customLabels = originalLabels.map(function (label, index) {
-                                                // Update the text for each legend entry
-                                                label.text = 'Purok ' + (index + 1) + ' (Charges)';
-                                                label.fillStyle = chart.data.datasets[0].backgroundColor[index]; // Use corresponding color
-                                                return label;
-                                            });
-                                            return customLabels;
-                                        },
+            // Initialize Charts
+            var ctx1 = document.getElementById('chargesChart').getContext('2d');
+            var chargesChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: addresses,
+                    datasets: [{
+                        label: 'Total Charges per Purok',
+                        data: currentCharges,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(201, 203, 207, 0.6)'
+                        ],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                generateLabels: function (chart) {
+                                    var originalLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+                                    var customLabels = originalLabels.map(function (label, index) {
+                                        // Update the text for each legend entry
+                                        label.text = 'Purok ' + (index + 1) + ' (Charges)';
+                                        label.fillStyle = chart.data.datasets[0].backgroundColor[index]; // Use corresponding color
+                                        return label;
+                                    });
+                                    return customLabels;
+                                },
 
-                                    }
-                                }
                             }
                         }
-                    });
-
-                    var ctx2 = document.getElementById('paymentMethodChart').getContext('2d');
-                    var paymentMethodChart = new Chart(ctx2, {
-                        type: 'pie',
-                        data: {
-                            labels: paymentMethods,
-                            datasets: [{
-                                data: memberCounts,
-                                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-                                hoverOffset: 4
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    display: true
-                                }
-                            }
-                        }
-                    });
-
-                    var ctx3 = document.getElementById('monthlyChargesChart').getContext('2d');
-
-                    var monthlyChargesChart = new Chart(ctx3, {
-                        type: 'line',
-                        data: {
-                            labels: months,
-                            datasets: [{
-                                label: 'Total Charges per Month',
-                                data: totalCharges,
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 2,
-                                fill: true
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    display: true
-                                }
-                            }
-                        },
-                        plugins: [{
-                            beforeDraw: (chart) => {
-                                let ctx = chart.ctx;
-                                let chartArea = chart.chartArea;
-                                if (!chartArea) return;
-
-                                // Create gradient based on actual chart size
-                                let gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                                gradient.addColorStop(0, 'rgba(75, 192, 192, 1)');
-                                gradient.addColorStop(1, 'rgba(75, 192, 192, 0.2)');
-
-                                // Apply gradient to dataset
-                                chart.data.datasets[0].backgroundColor = gradient;
-                            }
-                        }]
-                    });
-
-
-
-                    // Stacked Bar Chart for Total Charges per Purok
-                    var ctxPayment = document.getElementById('paymentChart').getContext('2d');
-                    var paymentChart = new Chart(ctxPayment, {
-                        type: 'bar',
-                        data: {
-                            labels: addresses,
-                            datasets: [{
-                                label: 'G-Cash',
-                                data: gcashCounts,
-                                backgroundColor: 'rgba(54, 162, 235, 0.6)', // Blue
-                            },
-                            {
-                                label: 'Walk-in',
-                                data: walkinCounts,
-                                backgroundColor: 'rgba(255, 99, 132, 0.6)', // Red
-                            }
-                            ]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                }
-                            },
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-
-
-
-                    // Function to filter data based on the selected month
-                    function filterDataByMonth(selectedMonth) {
-                        // Ensure proper filtering by finding the indices that match the selected month
-                        var filteredIndices = months.map((month, index) => month === selectedMonth ? index : -1).filter(index => index !== -1);
-
-                        // Filter data for the bar chart (addresses and charges)
-                        var filteredAddresses = filteredIndices.map(index => addresses[index]);
-                        var filteredCharges = filteredIndices.map(index => currentCharges[index]);
-
-                        // Filter data for the line chart (total charges by month)
-                        var filteredTotalCharges = months.map((month, index) => month === selectedMonth ? totalCharges[index] : 0);
-
-                        // Aggregate data for the pie chart
-                        var filteredPaymentCounts = paymentMethods.map((method, methodIndex) => {
-                            return filteredIndices.reduce((sum, dataIndex) => sum + (methodIndex === dataIndex ? memberCounts[dataIndex] : 0), 0);
-                        });
-
-                        // Update bar chart
-                        chargesChart.data.labels = filteredAddresses;
-                        chargesChart.data.datasets[0].data = filteredCharges;
-                        chargesChart.update();
-
-                        // Update line chart
-                        monthlyChargesChart.data.datasets[0].data = filteredTotalCharges;
-                        monthlyChargesChart.update();
-
-                        // Update pie chart
-                        paymentMethodChart.data.datasets[0].data = filteredPaymentCounts;
-                        paymentMethodChart.update();
                     }
+                }
+            });
 
-                    // Event listener for the month dropdown
-                    document.getElementById('month-select').addEventListener('change', function () {
-                        var selectedMonth = this.value;
-                        if (selectedMonth) {
-                            filterDataByMonth(selectedMonth);
+            var ctx2 = document.getElementById('paymentMethodChart').getContext('2d');
+            var paymentMethodChart = new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: paymentMethods,
+                    datasets: [{
+                        data: memberCounts,
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
                         }
-                    });
-                </script>
+                    }
+                }
+            });
 
-                <script>
-                    document.getElementById("month-select").addEventListener("change", function () {
-                        var selectedMonth = this.value;
-                        window.location.href = "dashboard_treasurer.php?month=" + selectedMonth;
-                    });
-                </script>
+            var ctx3 = document.getElementById('monthlyChargesChart').getContext('2d');
+
+            var monthlyChargesChart = new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Total Charges per Month',
+                        data: totalCharges,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    }
+                },
+                plugins: [{
+                    beforeDraw: (chart) => {
+                        let ctx = chart.ctx;
+                        let chartArea = chart.chartArea;
+                        if (!chartArea) return;
+
+                        // Create gradient based on actual chart size
+                        let gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                        gradient.addColorStop(0, 'rgba(75, 192, 192, 1)');
+                        gradient.addColorStop(1, 'rgba(75, 192, 192, 0.2)');
+
+                        // Apply gradient to dataset
+                        chart.data.datasets[0].backgroundColor = gradient;
+                    }
+                }]
+            });
+
+
+
+            // Stacked Bar Chart for Total Charges per Purok
+            var ctxPayment = document.getElementById('paymentChart').getContext('2d');
+            var paymentChart = new Chart(ctxPayment, {
+                type: 'bar',
+                data: {
+                    labels: addresses,
+                    datasets: [{
+                        label: 'G-Cash',
+                        data: gcashCounts,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)', // Blue
+                    },
+                    {
+                        label: 'Walk-in',
+                        data: walkinCounts,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)', // Red
+                    }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+
+
+            // Function to filter data based on the selected month
+            function filterDataByMonth(selectedMonth) {
+                // Ensure proper filtering by finding the indices that match the selected month
+                var filteredIndices = months.map((month, index) => month === selectedMonth ? index : -1).filter(index => index !== -1);
+
+                // Filter data for the bar chart (addresses and charges)
+                var filteredAddresses = filteredIndices.map(index => addresses[index]);
+                var filteredCharges = filteredIndices.map(index => currentCharges[index]);
+
+                // Filter data for the line chart (total charges by month)
+                var filteredTotalCharges = months.map((month, index) => month === selectedMonth ? totalCharges[index] : 0);
+
+                // Aggregate data for the pie chart
+                var filteredPaymentCounts = paymentMethods.map((method, methodIndex) => {
+                    return filteredIndices.reduce((sum, dataIndex) => sum + (methodIndex === dataIndex ? memberCounts[dataIndex] : 0), 0);
+                });
+
+                // Update bar chart
+                chargesChart.data.labels = filteredAddresses;
+                chargesChart.data.datasets[0].data = filteredCharges;
+                chargesChart.update();
+
+                // Update line chart
+                monthlyChargesChart.data.datasets[0].data = filteredTotalCharges;
+                monthlyChargesChart.update();
+
+                // Update pie chart
+                paymentMethodChart.data.datasets[0].data = filteredPaymentCounts;
+                paymentMethodChart.update();
+            }
+
+            // Event listener for the month dropdown
+            document.getElementById('month-select').addEventListener('change', function () {
+                var selectedMonth = this.value;
+                if (selectedMonth) {
+                    filterDataByMonth(selectedMonth);
+                }
+            });
+        </script>
+
+        <script>
+            document.getElementById("month-select").addEventListener("change", function () {
+                var selectedMonth = this.value;
+                window.location.href = "dashboard_treasurer.php?month=" + selectedMonth;
+            });
+        </script>
 
 </body>
 
