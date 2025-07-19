@@ -1,6 +1,7 @@
 <?php
 include 'DBConnection.php';
 
+
 $member_id = $_GET['member_id']; // Make sure to get the member ID
 $errors = [];
 
