@@ -184,11 +184,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             </td>
                                             <td>
                                                 <span id="reading_date_<?php echo $row['member_id']; ?>">Reading Date:
-                                                    <?php echo htmlspecialchars($row['reading_date']); ?></span><br>
+                                                    <?php
+                                                    echo date('F d, Y', strtotime($row['reading_date']));
+                                                    ?></span><br>
                                                 <span id="due_date_<?php echo $row['member_id']; ?>">Due Date:
-                                                    <?php echo htmlspecialchars($row['due_date']); ?></span><br>
+                                                    <?php
+                                                    echo date('F d, Y', strtotime($row['due_date']));
+                                                    ?></span><br>
                                                 <span id="disconnection_date_<?php echo $row['member_id']; ?>">Disconnection
-                                                    Date: <?php echo htmlspecialchars($row['disconnection_date']); ?></span>
+                                                    Date: <?php
+                                                    echo date('F d, Y', strtotime($row['disconnection_date']));
+                                                    ?></span>
                                             </td>
                                             <td><?php echo htmlspecialchars($row['current_charges']); ?></td>
                                             <td><?php echo htmlspecialchars($row['arrears_amount']); ?></td>

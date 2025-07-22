@@ -22,9 +22,7 @@ $query = "
         members.address,
         meter_reading.total_usage, 
         meter_reading.current_charges,
-        meter_reading.reading_date,
-        meter_reading.due_date,
-        meter_reading.disconnection_date
+        meter_reading.reading_date
     FROM 
         meter_reading
     JOIN 
@@ -33,9 +31,12 @@ $query = "
 
 // Add filtering condition if a specific month is selected
 if ($selectedMonth !== null && $selectedMonth !== '') {
-    $query .= " WHERE MONTH(meter_reading.reading_date) = $selectedMonth 
-    ORDER BY reading_date desc";
+    $query .= " WHERE MONTH(meter_reading.reading_date) = $selectedMonth";
 }
+
+// Always order by latest date
+$query .= " ORDER BY meter_reading.reading_date DESC";
+
 
 
 // Execute the query
@@ -196,7 +197,7 @@ $select = mysqli_query($connection, $query);
                                 <thead>
                                     <tr>
                                         <th>Reading ID</th>
-                                        <th>Due Date</th>
+                                        <th>Reading Date</th>
                                         <th>Full Name</th>
                                         <th>Meter No.</th>
                                         <th>Tank No.</th>
@@ -209,7 +210,9 @@ $select = mysqli_query($connection, $query);
                                     <?php while ($row = mysqli_fetch_assoc($select)) { ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($row['reading_id']); ?></td>
-                                            <td><?php echo htmlspecialchars($row['reading_date']); ?></td>
+                                            <td><?php
+                                            echo date('F d, Y', strtotime($row['reading_date']));
+                                            ?></td>
                                             <td><?php echo htmlspecialchars($row['full_name']); ?></td>
                                             <td><?php echo htmlspecialchars($row['meter_no']); ?></td>
                                             <td><?php echo htmlspecialchars($row['tank_no']); ?></td>

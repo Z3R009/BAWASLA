@@ -53,6 +53,11 @@ if (!$select) {
         th:nth-child(2) {
             display: none;
         }
+
+        td:nth-child(9),
+        th:nth-child(9) {
+            display: none;
+        }
     </style>
 </head>
 
@@ -94,21 +99,29 @@ if (!$select) {
 
                                             <td>
                                                 <span id="reading_date_<?php echo $member_id; ?>">
-                                                    Reading Date: <?php echo htmlspecialchars($row['reading_date']); ?>
+                                                    Reading Date: <?php
+                                                    echo date('F d, Y', strtotime($row['reading_date']));
+                                                    ?>
                                                 </span>
                                                 <br>
                                                 <span id="due_date_<?php echo $member_id; ?>">
-                                                    Due Date: <?php echo htmlspecialchars($row['due_date']); ?>
+                                                    Due Date: <?php
+                                                    echo date('F d, Y', strtotime($row['due_date']));
+                                                    ?>
                                                 </span>
                                                 <br>
                                                 <span id="disconnection_date_<?php echo $member_id; ?>">
                                                     Disconnection Date:
-                                                    <?php echo htmlspecialchars($row['disconnection_date']); ?>
+                                                    <?php
+                                                    echo date('F d, Y', strtotime($row['disconnection_date']));
+                                                    ?>
                                                 </span>
                                                 <br>
                                                 <span id="payment_date_<?php echo $member_id; ?>">
                                                     Payment Date:
-                                                    <?php echo htmlspecialchars($row['payment_date']); ?>
+                                                    <?php
+                                                    echo date('F d, Y', strtotime($row['payment_date']));
+                                                    ?>
                                                 </span>
                                             </td>
                                             <td><?php echo htmlspecialchars($row['fullname']); ?></td>

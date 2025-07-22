@@ -31,9 +31,11 @@ $query = "
 
 // Add filtering condition if a specific month is selected
 if ($selectedMonth !== null && $selectedMonth !== '') {
-    $query .= " WHERE MONTH(meter_reading.reading_date) = $selectedMonth 
-    ORDER BY reading_date asc";
+    $query .= " WHERE MONTH(meter_reading.reading_date) = $selectedMonth";
 }
+
+// Always order by latest date
+$query .= " ORDER BY meter_reading.reading_date DESC";
 
 
 // Execute the query
@@ -175,7 +177,12 @@ $select = mysqli_query($connection, $query);
                                     <?php while ($row = mysqli_fetch_assoc($select)) { ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($row['reading_id']); ?></td>
-                                            <td><?php echo htmlspecialchars($row['reading_date']); ?></td>
+                                            <td>
+                                                <?php
+                                                echo date('F d, Y', strtotime($row['reading_date']));
+                                                ?>
+                                            </td>
+
                                             <td><?php echo htmlspecialchars($row['full_name']); ?></td>
                                             <td><?php echo htmlspecialchars($row['meter_no']); ?></td>
                                             <td><?php echo htmlspecialchars($row['tank_no']); ?></td>
