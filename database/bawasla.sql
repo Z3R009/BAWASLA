@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2025 at 02:31 PM
+-- Generation Time: Jul 22, 2025 at 04:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,7 +63,13 @@ CREATE TABLE `history` (
 
 INSERT INTO `history` (`history_id`, `member_id`, `reading_id`, `transaction_id`, `fullname`, `reading_date`, `due_date`, `disconnection_date`, `payment_date`, `current_charges`, `total_amount_due`, `amount_paid`, `billing_month`, `payment_method`) VALUES
 (1, 658797145, 161901449, 146431969, 'Cruz, Juan X', '2025-02-05', '2025-02-20', '2025-02-22', '2025-02-05', 216.00, 230.00, 230.00, 'February 2025', 'Walk-In'),
-(2, 356861103, 639845515, 404196504, 'Lloren, Kevin ', '2025-02-05', '2025-02-20', '2025-02-22', '2025-02-05', 414.00, 414.00, 414.00, 'February 2025', 'Walk-In');
+(2, 356861103, 639845515, 404196504, 'Lloren, Kevin ', '2025-02-05', '2025-02-20', '2025-02-22', '2025-02-05', 414.00, 414.00, 414.00, 'February 2025', 'Walk-In'),
+(3, 202743864, 719141656, 811655412, 'Bohr, Neils ', '2024-10-24', '2024-12-11', '2024-12-13', '2025-03-03', 90.00, 90.00, 20.00, 'October 2024', 'Walk-In'),
+(4, 802992535, 693382583, 463578460, 'Tesla, Nikola ', '2024-09-19', '2024-12-11', '2024-12-13', '2025-03-14', 612.00, 612.00, 612.00, 'September 2024', 'Walk-In'),
+(5, 196094140, 766603194, 254028151, 'Robert , Boyle ', '2024-04-02', '2024-12-11', '2024-12-13', '2025-03-14', 1278.00, 1278.00, 1278.00, 'April 2024', 'Walk-In'),
+(6, 202743864, 271006491, 308614023, 'Bohr, Neils ', '2025-03-03', '2025-03-18', '2025-03-20', '2025-03-27', 18.00, 88.00, 100.00, 'March 2025', 'Walk-In'),
+(7, 473072709, 598513734, 234607116, 'Laraño, Ritz ', '2025-04-30', '2025-05-15', '2025-05-17', '2025-06-08', 900.00, 900.00, 800.00, 'April 2025', 'Walk-In'),
+(8, 209309531, 429245647, 949076843, 'test, t t', '2025-07-22', '2025-08-06', '2025-08-08', '2025-07-22', 18.00, 18.00, 20.00, 'July 2025', 'Walk-In');
 
 -- --------------------------------------------------------
 
@@ -96,14 +102,15 @@ INSERT INTO `members` (`id`, `user_id`, `member_id`, `last_name`, `first_name`, 
 (14, 658797145, 658797145, 'Cruz', 'Juan', 'X', '2', '09277603828', 3, 3, 'jc', '$2y$10$7mZu7x.A4D798YQfuAdCde6nUf.zreXMLEm5iGl4AzXuelJz/g.im', 'Member', 'Not Done'),
 (38, 356861103, 356861103, 'Lloren', 'Kevin', '', '1', '09277606828', 2, 121313, 'kl', '$2y$10$sgMcdZdgKNqXLjPefr7.Hu/FXk7.zYCWSv15FGqnFJmGd3El9R0Im', 'Member', 'Not Done'),
 (39, 580277208, 580277208, 'Bulalaque', 'Claire', '', '3', '09277603828', 3, 453453, 'cb', '$2y$10$L6.EcHHRsBvJyJxSw6LsgeDffpdoe27Vaj/7G/BwGDqqJcaBBofTW', 'Member', 'Done'),
-(40, 202743864, 202743864, 'Bohr', 'Neils', '', '3', '09277603828', 2, 4646, 'nb', '$2y$10$LDBuwrr18HmhTdPtPLyazOb9Q/fo/IIibH4/R4y9lzn8vn..wFYey', 'Member', 'Done'),
+(40, 202743864, 202743864, 'Bohr', 'Neils', '', '3', '09277603828', 2, 4646, 'nb', '$2y$10$LDBuwrr18HmhTdPtPLyazOb9Q/fo/IIibH4/R4y9lzn8vn..wFYey', 'Member', 'Not Done'),
 (41, 184309635, 184309635, 'Newton', 'Isaac', '', '2', '09277603828', 1, 54646, 'in', '$2y$10$q8tRUI.ck313i7E1sx0Ys.8g7zHtvzuRkI.w/3OklK5WQFlAtsfMG', 'Member', 'Not Done'),
 (42, 589909318, 589909318, 'Curie', 'Marie', '', '1', '09277603828', 3, 456456, 'mc', '$2y$10$LvrZ33ewPT2LCbkdYFYLS.w/13DpUhPns/E4l.In2dDa5Cdto8gne', 'Member', 'Done'),
-(43, 196094140, 196094140, 'Robert ', 'Boyle', '', '2', '09277603828', 2, 57556, 'rb', '$2y$10$8zTI87aN2wutktKlZyz1rOwIfXfBicWVFsR6FX8HjdJUhFOIx/S9q', 'Member', 'Done'),
-(44, 802992535, 802992535, 'Tesla', 'Nikola', '', '3', '09277603828', 1, 369, 'nt', '$2y$10$R5WUpIo.CklQ.zl51EXYIOxmO9Ae2Y482zK3tYXFGRglfVcquC3ai', 'Member', 'Done'),
-(45, 473072709, 473072709, 'Laraño', 'Ritz', '', '2', '09277603828', 3, 34535, 'r', '$2y$10$7RdgIGW0FwLIMk07Gq4mMucfWHGpwz5Swl751tPZPmPionFs0rGvi', 'Member', 'Not Done'),
-(46, 771538306, 771538306, 'a', 'a', 'a', '2', '09277603828', 2, 2, 'a', '$2y$10$dY.1RYfv0XJ1lwBYue.TO.16cGMzDjnkrUbR3r0HAsZ/LHudbfEea', 'Member', 'Not Done'),
-(47, 650894394, 650894394, 'test', 't', 't', '1', '09277603828', 4, 4, 't', '$2y$10$v6UW7I1p8BNLhvIeuI/4aelZ4MYafcJuXkpCnnkSB5JXIw3dsu15u', 'Member', 'Not Done');
+(43, 196094140, 196094140, 'Robert ', 'Boyle', '', '2', '09277603828', 2, 57556, 'rb', '$2y$10$8zTI87aN2wutktKlZyz1rOwIfXfBicWVFsR6FX8HjdJUhFOIx/S9q', 'Member', 'Not Done'),
+(44, 802992535, 802992535, 'Tesla', 'Nikola', '', '3', '09277603828', 1, 369, 'nt', '$2y$10$R5WUpIo.CklQ.zl51EXYIOxmO9Ae2Y482zK3tYXFGRglfVcquC3ai', 'Member', 'Not Done'),
+(45, 473072709, 473072709, 'Laraño', 'Ritz', '', '2', '09277603828', 3, 34535, 'r', '$2y$10$7RdgIGW0FwLIMk07Gq4mMucfWHGpwz5Swl751tPZPmPionFs0rGvi', 'Member', 'Done'),
+(46, 771538306, 771538306, 'a', 'a', 'a', '2', '09277603828', 2, 2, 'a', '$2y$10$dY.1RYfv0XJ1lwBYue.TO.16cGMzDjnkrUbR3r0HAsZ/LHudbfEea', 'Member', 'Done'),
+(48, 209309531, 209309531, 'test', 't', 't', '3', '09277603828', 2, 2, 'test', '$2y$10$7LBRn47tHGktrzzpVdLN4e9ZxQzk05xaVJz3IFEgGbO43YNcVerne', 'Member', 'Not Done'),
+(49, 298254319, 298254319, 'test2', 'a', '', '4', '09277603828', 4, 7777, 'aaa', '$2y$10$IEKpyd7OZ6Yxoou7so8goeXsy2sXT8.CW1IryvmEoZ0gvXc4iCntS', 'Member', 'Done');
 
 -- --------------------------------------------------------
 
@@ -135,15 +142,21 @@ CREATE TABLE `meter_reading` (
 
 INSERT INTO `meter_reading` (`reading_id`, `user_id`, `member_id`, `reading_date`, `time`, `previous_reading`, `current_reading`, `total_usage`, `current_charges`, `arrears_amount`, `total_amount_due`, `due_date`, `disconnection_date`, `billing_month`, `status`) VALUES
 (161901449, 601672633, 658797145, '2025-02-05', '21:31:59', 23, 35, 12, 216.00, 14.00, 230.00, '2025-02-20', '2025-02-22', 'February 2025', 'Paid'),
+(271006491, 601672633, 202743864, '2025-03-03', '12:20:55', 5, 6, 1, 18.00, 70.00, 88.00, '2025-03-18', '2025-03-20', 'March 2025', 'Paid'),
 (306887664, 409614432, 589909318, '2024-07-17', '10:21:39', 0, 21, 21, 378.00, 0.00, 378.00, '2024-12-11', '2024-12-13', 'July 2024', 'Not Paid'),
+(429245647, 601672633, 209309531, '2025-07-22', '22:01:54', 0, 1, 1, 18.00, 0.00, 18.00, '2025-08-06', '2025-08-08', 'July 2025', 'Paid'),
 (441828404, 497364803, 658797145, '2024-06-03', '10:17:58', 0, 23, 23, 414.00, 0.00, 414.00, '2024-12-11', '2024-12-13', 'June 2024', 'Paid'),
 (449448876, 601672633, 473072709, '2025-02-05', '21:21:25', 0, 13, 13, 234.00, 0.00, 234.00, '2025-02-20', '2025-02-22', 'February 2025', 'Paid'),
+(598513734, 601672633, 473072709, '2025-04-30', '08:37:38', 13, 63, 50, 900.00, 0.00, 900.00, '2025-05-15', '2025-05-17', 'April 2025', 'Paid'),
 (639845515, 601672633, 356861103, '2025-02-05', '21:33:47', 2, 25, 23, 414.00, 0.00, 414.00, '2025-02-20', '2025-02-22', 'February 2025', 'Paid'),
 (673068509, 409614432, 356861103, '2024-06-12', '10:20:00', 0, 2, 2, 36.00, 0.00, 36.00, '2024-12-11', '2024-12-13', 'August 2024', 'Paid'),
-(693382583, 409614432, 802992535, '2024-09-19', '10:22:04', 0, 34, 34, 612.00, 0.00, 612.00, '2024-12-11', '2024-12-13', 'September 2024', 'Not Paid'),
-(719141656, 409614432, 202743864, '2024-10-24', '10:21:22', 0, 5, 5, 90.00, 0.00, 90.00, '2024-12-11', '2024-12-13', 'October 2024', 'Not Paid'),
+(693382583, 409614432, 802992535, '2024-09-19', '10:22:04', 0, 34, 34, 612.00, 0.00, 612.00, '2024-12-11', '2024-12-13', 'September 2024', 'Paid'),
+(719141656, 409614432, 202743864, '2024-10-24', '10:21:22', 0, 5, 5, 90.00, 0.00, 90.00, '2024-12-11', '2024-12-13', 'October 2024', 'Paid'),
+(747282112, 601672633, 298254319, '2025-07-19', '19:52:47', 0, 12, 12, 216.00, 0.00, 216.00, '2025-08-03', '2025-08-05', 'July 2025', 'Not Paid'),
 (747780578, 409614432, 184309635, '2024-05-14', '10:21:29', 0, 7, 7, 126.00, 0.00, 126.00, '2024-12-11', '2024-12-13', 'May 2024', 'Paid'),
-(766603194, 409614432, 196094140, '2024-04-02', '10:21:53', 0, 71, 71, 1278.00, 0.00, 1278.00, '2024-12-11', '2024-12-13', 'April 2024', 'Not Paid');
+(755255125, 601672633, 771538306, '2025-04-03', '10:45:14', 0, 123, 123, 2214.00, 0.00, 2214.00, '2025-04-18', '2025-04-20', 'April 2025', 'Not Paid'),
+(766603194, 409614432, 196094140, '2024-04-02', '10:21:53', 0, 71, 71, 1278.00, 0.00, 1278.00, '2024-12-11', '2024-12-13', 'April 2024', 'Paid'),
+(952846428, 601672633, 473072709, '2025-06-08', '11:59:56', 63, 88, 25, 450.00, 100.00, 550.00, '2025-06-23', '2025-06-25', 'June 2025', 'Not Paid');
 
 -- --------------------------------------------------------
 
@@ -194,9 +207,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `user_id`, `member_id`, `username`, `password`, `user_type`) VALUES
 (17, 658797145, 658797145, 'jc', '$2y$10$7mZu7x.A4D798YQfuAdCde6nUf.zreXMLEm5iGl4AzXuelJz/g.im', 'Member'),
-(25, 409614432, 0, 'z', '$2y$10$1ILmacd6vWLvYjsDbrYg/O.jCEvDU6Mh1rig2tLQ.01mGJrSnCDBi', 'President'),
+(25, 409614432, 0, 'z', '$2y$10$ErUHoCdUYqxBnpaw1kliHuPQcPDHs8TvCFe0Ff9RAlPJnUD9DoMf6', 'President'),
 (43, 497364803, 0, 'tr', '$2y$10$Kam/K8KiJNPThZBDjfKwBecg119yPivBRo8PdfPmTiXsCpiTbSAue', 'Treasurer'),
-(44, 601672633, 0, 'mr', '$2y$10$ixTe7tS/YQp5AYi6IBGGluFc3/Qb7JHfcGPPgyG1s5vzHOzXSfTe6', 'Meter Reader'),
+(44, 601672633, 0, 'mr', '$2y$10$fi23RSj37aHWqfymugSunOxrM6YqiXJFAQBggeK4km/GwBS4zRYIS', 'Meter Reader'),
 (47, 356861103, 356861103, 'kl', '$2y$10$sgMcdZdgKNqXLjPefr7.Hu/FXk7.zYCWSv15FGqnFJmGd3El9R0Im', 'Member'),
 (48, 580277208, 580277208, 'cb', '$2y$10$L6.EcHHRsBvJyJxSw6LsgeDffpdoe27Vaj/7G/BwGDqqJcaBBofTW', 'Member'),
 (49, 202743864, 202743864, 'nb', '$2y$10$LDBuwrr18HmhTdPtPLyazOb9Q/fo/IIibH4/R4y9lzn8vn..wFYey', 'Member'),
@@ -206,7 +219,8 @@ INSERT INTO `users` (`id`, `user_id`, `member_id`, `username`, `password`, `user
 (53, 802992535, 802992535, 'nt', '$2y$10$R5WUpIo.CklQ.zl51EXYIOxmO9Ae2Y482zK3tYXFGRglfVcquC3ai', 'Member'),
 (54, 473072709, 473072709, 'r', '$2y$10$7RdgIGW0FwLIMk07Gq4mMucfWHGpwz5Swl751tPZPmPionFs0rGvi', 'Member'),
 (55, 771538306, 771538306, 'a', '$2y$10$dY.1RYfv0XJ1lwBYue.TO.16cGMzDjnkrUbR3r0HAsZ/LHudbfEea', 'Member'),
-(56, 650894394, 650894394, 't', '$2y$10$v6UW7I1p8BNLhvIeuI/4aelZ4MYafcJuXkpCnnkSB5JXIw3dsu15u', 'Member');
+(57, 209309531, 209309531, 'test', '$2y$10$7LBRn47tHGktrzzpVdLN4e9ZxQzk05xaVJz3IFEgGbO43YNcVerne', 'Member'),
+(58, 298254319, 298254319, 'aaa', '$2y$10$IEKpyd7OZ6Yxoou7so8goeXsy2sXT8.CW1IryvmEoZ0gvXc4iCntS', 'Member');
 
 --
 -- Indexes for dumped tables
@@ -256,19 +270,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `arrears`
 --
 ALTER TABLE `arrears`
-  MODIFY `arrears_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `arrears_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `pending`
@@ -280,7 +294,7 @@ ALTER TABLE `pending`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

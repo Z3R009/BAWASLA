@@ -527,11 +527,11 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                             </div>
                         </div>
 
-                        <div class="container-fluid px-4">
-                            <div class="row">
+                            <div class="container-fluid px-4">
+                                <div class="row">
                                 <div class="col-12 mb-4">
-                                    <div class="box">
-                                        <h6>Total Charges per Purok</h6>
+                                        <div class="box">
+                                            <h6>Total Charges per Purok</h6>
                                         <canvas id="chargesChart"></canvas>
                                     </div>
                                 </div>
@@ -541,30 +541,30 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                         <div class="container-fluid px-4">
                             <div class="row">
                                 <div class="col-12 mb-4">
-                                    <div class="box">
+                                        <div class="box">
                                         <h6>Monthly Charges</h6>
                                         <canvas id="monthlyChargesChart"></canvas>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="container-fluid px-4">
-                            <div class="row">
-                                <div class="col-12 mb-4">
-                                    <div class="box">
-                                        <h6>Payment Method Used</h6>
-                                        <canvas id="paymentMethodChart"></canvas>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="container-fluid px-4">
-                            <div class="row">
+                            <div class="container-fluid px-4">
+                                <div class="row">
                                 <div class="col-12 mb-4">
-                                    <div class="box">
-                                        <h6>Payment Methods by Purok (G-Cash vs Walk-in)</h6>
+                                        <div class="box">
+                                        <h6>Payment Method Used</h6>
+                                        <canvas id="paymentMethodChart"></canvas>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid px-4">
+                                <div class="row">
+                                <div class="col-12 mb-4">
+                                        <div class="box">
+                                            <h6>Payment Methods by Purok (G-Cash vs Walk-in)</h6>
                                         <canvas id="paymentChart"></canvas>
                                     </div>
                                 </div>
@@ -621,27 +621,27 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
             <?php include "Includes/footer.php"; ?>
         </div>
 
-    </div>
-    <!-- startbootstrap -->
-    <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
-    <script src="start/js/scripts.js"></script>
-    <script src="start/js/Chart.min.js"></script>
-    <script src="start/js/simple-datatables.min.js"></script>
-    <script src="start/js/datatables-simple-demo.js"></script>
+        </div>
+        <!-- startbootstrap -->
+        <script src="bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+        <script src="start/js/scripts.js"></script>
+        <script src="start/js/Chart.min.js"></script>
+        <script src="start/js/simple-datatables.min.js"></script>
+        <script src="start/js/datatables-simple-demo.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
-    <script>
-        // Data passed from PHP to JavaScript
-        var addresses = <?php echo json_encode($addresses); ?>;
-        var currentCharges = <?php echo json_encode($current_charges); ?>;
-        var months = <?php echo json_encode($months); ?>;
-        var totalCharges = <?php echo json_encode($total_charges); ?>;
-        var avgCharges = <?php echo json_encode($avg_charges); ?>;
+        <script>
+            // Data passed from PHP to JavaScript
+            var addresses = <?php echo json_encode($addresses); ?>;
+            var currentCharges = <?php echo json_encode($current_charges); ?>;
+            var months = <?php echo json_encode($months); ?>;
+            var totalCharges = <?php echo json_encode($total_charges); ?>;
+            var avgCharges = <?php echo json_encode($avg_charges); ?>;
 
-        var paymentMethods = <?php echo json_encode($payment_methods); ?>;
-        var memberCounts = <?php echo json_encode($member_counts); ?>;
-        var gcashCounts = <?php echo json_encode($gcash_counts); ?>;
-        var walkinCounts = <?php echo json_encode($walkin_counts); ?>;
+            var paymentMethods = <?php echo json_encode($payment_methods); ?>;
+            var memberCounts = <?php echo json_encode($member_counts); ?>;
+            var gcashCounts = <?php echo json_encode($gcash_counts); ?>;
+            var walkinCounts = <?php echo json_encode($walkin_counts); ?>;
 
         // Modern color palette
         const modernColors = [
@@ -657,14 +657,14 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
         }
 
         // Charges per Purok (Bar Chart)
-        var ctx1 = document.getElementById('chargesChart').getContext('2d');
-        var chargesChart = new Chart(ctx1, {
-            type: 'bar',
-            data: {
-                labels: addresses,
-                datasets: [{
-                    label: 'Total Charges per Purok',
-                    data: currentCharges,
+            var ctx1 = document.getElementById('chargesChart').getContext('2d');
+            var chargesChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: addresses,
+                    datasets: [{
+                        label: 'Total Charges per Purok',
+                        data: currentCharges,
                     backgroundColor: function (context) {
                         const chart = context.chart;
                         const { ctx, chartArea } = chart;
@@ -674,12 +674,12 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                     borderRadius: 12,
                     borderSkipped: false,
                     maxBarThickness: 40,
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
                         display: false
                     },
                     datalabels: {
@@ -751,23 +751,23 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
         });
 
         // Payment Method (Pie Chart)
-        var ctx2 = document.getElementById('paymentMethodChart').getContext('2d');
-        var paymentMethodChart = new Chart(ctx2, {
+            var ctx2 = document.getElementById('paymentMethodChart').getContext('2d');
+            var paymentMethodChart = new Chart(ctx2, {
             type: 'doughnut',
-            data: {
-                labels: paymentMethods,
-                datasets: [{
-                    data: memberCounts,
+                data: {
+                    labels: paymentMethods,
+                    datasets: [{
+                        data: memberCounts,
                     backgroundColor: modernColors.slice(0, paymentMethods.length),
                     borderWidth: 2,
                     borderColor: '#fff',
-                }]
-            },
-            options: {
-                responsive: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
                 cutout: '70%',
-                plugins: {
-                    legend: {
+                    plugins: {
+                        legend: {
                         display: true,
                         position: 'bottom',
                         labels: {
@@ -813,14 +813,14 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
         });
 
         // Monthly Charges (Line Chart)
-        var ctx3 = document.getElementById('monthlyChargesChart').getContext('2d');
-        var monthlyChargesChart = new Chart(ctx3, {
-            type: 'line',
-            data: {
-                labels: months,
-                datasets: [{
-                    label: 'Total Charges per Month',
-                    data: totalCharges,
+            var ctx3 = document.getElementById('monthlyChargesChart').getContext('2d');
+            var monthlyChargesChart = new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Total Charges per Month',
+                        data: totalCharges,
                     borderColor: '#6c63ff',
                     backgroundColor: function (context) {
                         const chart = context.chart;
@@ -835,12 +835,12 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                     pointHoverRadius: 8,
                     tension: 0.4,
                     fill: true,
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
                         display: false
                     },
                     datalabels: {
@@ -924,11 +924,11 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
             gradient.addColorStop(1, 'rgba(255,106,136,0.3)');
             return gradient;
         }
-        var ctxPayment = document.getElementById('paymentChart').getContext('2d');
+            var ctxPayment = document.getElementById('paymentChart').getContext('2d');
         paymentChart = new Chart(ctxPayment, {
-            type: 'bar',
-            data: {
-                labels: addresses,
+                type: 'bar',
+                data: {
+                    labels: addresses,
                 datasets: [
                     {
                         label: 'G-Cash',
@@ -946,13 +946,13 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                         borderSkipped: false,
                         maxBarThickness: 40,
                     }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
                         labels: {
                             color: '#2c3e50',
                             font: { weight: 'bold', size: 14 }
@@ -992,9 +992,9 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                             return context.dataset.data[context.dataIndex] > 0;
                         },
                         formatter: function (value) { return value; }
-                    }
-                },
-                scales: {
+                        }
+                    },
+                    scales: {
                     xAxes: [{
                         stacked: true,
                         gridLines: { display: false },
@@ -1031,15 +1031,15 @@ while ($row = mysqli_fetch_assoc($result_payment_methods_count)) {
                 }
             },
             plugins: [ChartDataLabels]
-        });
-    </script>
+            });
+        </script>
 
-    <script>
-        document.getElementById("month-select").addEventListener("change", function () {
-            var selectedMonth = this.value;
+        <script>
+            document.getElementById("month-select").addEventListener("change", function () {
+                var selectedMonth = this.value;
             window.location.href = "dashboard_admin.php?month=" + selectedMonth;
-        });
-    </script>
+            });
+        </script>
 
 </body>
 
