@@ -217,10 +217,13 @@ $select = mysqli_query($connection, "SELECT * FROM members");
                                                 <label for="address" class="form-label">Address</label>
                                                 <select class="form-select" id="address" name="address">
                                                     <option selected disabled>Select Address</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
+                                                    <option value="Mainuswagon">Mainuswagon</option>
+                                                    <option value="Riverside">Riverside</option>
+                                                    <option value="Malipayon">Malipayon</option>
+                                                    <option value="Malipayon Extension">Malipayon Extension</option>
+                                                    <option value="Riverside Extension">Riverside Extension</option>
+                                                    <option value="Mabuhay">Mabuhay</option>
+                                                    <option value="Bibiana">Bibiana</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-3 mb-3">
@@ -372,10 +375,13 @@ $select = mysqli_query($connection, "SELECT * FROM members");
                                                 <label for="edit_address" class="form-label">Address</label>
                                                 <select class="form-select" id="edit_address" name="address">
                                                     <option selected disabled>Select Address</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
+                                                    <option value="Mainuswagon">Mainuswagon</option>
+                                                    <option value="Riverside">Riverside</option>
+                                                    <option value="Malipayon">Malipayon</option>
+                                                    <option value="Malipayon Extension">Malipayon Extension</option>
+                                                    <option value="Riverside Extension">Riverside Extension</option>
+                                                    <option value="Mabuhay">Mabuhay</option>
+                                                    <option value="Bibiana">Bibiana</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-3 mb-3">
